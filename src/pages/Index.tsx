@@ -8,13 +8,15 @@ import { StreakCounter } from '../components/StreakCounter';
 import { PointsDisplay } from '../components/PointsDisplay';
 import { BadgeCard } from '../components/BadgeCard';
 import { useWorkoutStore } from '../store/workoutStore';
+import { useTrainingPlanStore } from '../store/trainingPlanStore';
 import { badges, checkBadgeUnlocked, getBadgeProgress } from '../lib/badges';
 import { calculateLevel } from '../lib/pointsConfig';
 import { computeBadgeStats } from '../lib/badgeUtils';
 
 const Index = () => {
-  const { stats, workouts, activePlan, unlockedBadges, unlockBadge } = useWorkoutStore();
-  const badgeStats = computeBadgeStats(stats, workouts, activePlan);
+  const { stats, unlockedBadges, unlockBadge } = useWorkoutStore();
+  const { activePlan } = useTrainingPlanStore();
+  const badgeStats = computeBadgeStats(stats, activePlan);
   
   // Check for new badge unlocks
   useEffect(() => {
